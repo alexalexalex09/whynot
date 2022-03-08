@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div#startScreen 
+    h1= title
+    p Welcome to #{title}
+    label(for="playerNum") Number of Players:
+    input#playerNum(type="number")
+    button(type="submit" id="startGame" onclick="setupGame()") Start
+  div#playArea

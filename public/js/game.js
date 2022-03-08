@@ -9,10 +9,6 @@ Player.table
 Player.name
 */
 
-//The user sets up how many players, rule variants, etc.
-setupPlayArea();
-//Set up the game based on number of players, put players in their seats, put aces in front of them
-setupGame();
 //Set up deck
 DECK = initDeck();
 //Shuffle the deck
@@ -79,8 +75,16 @@ function whyNot(currentPlayer) {
   nextTurn(currentPlayer);
 }
 
-//Deal cards
 function dealCards(numCards, startPlayer, destination) {
+  sendCards(numCards, startPlayer, destination, false);
+}
+
+function drawCards(numCards, player, destination) {
+  sendCards(numCards, player, destination, true);
+}
+
+//Deal cards
+function sendCards(numCards, startPlayer, destination, drawing) {
   //Get the cards from the top of the deck
   const cardsToDeal = DECK.splice(0, numCards);
   //Set the current player being dealt to
@@ -95,20 +99,22 @@ function dealCards(numCards, startPlayer, destination) {
     } else {
       dealingTo.table.push(cardToDeal);
     }
-    //Increment the player to be dealt to
-    dealingTo++;
-    //If there are no more players, wrap around to the beginning
-    if (dealingTo > players.length) {
-      dealingTo = 0;
+    if (!drawing) {
+      //Increment the player to be dealt to
+      dealingTo++;
+      //If there are no more players, wrap around to the beginning
+      if (dealingTo > players.length) {
+        dealingTo = 0;
+      }
     }
   }
 }
 
-function drawCards(numCards, player, destination) {}
-
-function setupPlayArea() {}
-
-function setupGame() {}
+//Set up the game based on number of players, put players in their seats, put aces in front of them
+function setupGame() {
+  fadeOut("#startScreen");
+  fadeIn("#playArea");
+}
 
 function getPlayerArray() {}
 
@@ -144,3 +150,10 @@ function hasWon(player) {}
 function win(player) {}
 
 function nextTurn(player) {}
+
+function fadeOut(elementString) {
+  const el = document.querySelector(elementString);
+  el.classList.add("transition-1s");
+  el.classList.add("invisible");
+  el.classList.add("hidden");
+}

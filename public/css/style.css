@@ -4,5 +4,19 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+/* functional classes */
+
+.transition-1s {
+  transition: 1s all;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+.hidden {
+  display: off;
 }
