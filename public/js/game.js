@@ -1,7 +1,8 @@
+//Animation functions from animation.js must be available
+
 //Globals
 var DECK, TURN;
-//PLAYER_ARRAY is an array of Player objects accessible by array location
-const PLAYER_ARRAY = getPlayerArray();
+
 //Player Object
 /*
 Player.hand
@@ -113,10 +114,43 @@ function sendCards(numCards, startPlayer, destination, drawing) {
 //Set up the game based on number of players, put players in their seats, put aces in front of them
 function setupGame() {
   fadeOut("#startScreen");
+  const playerCount = document.querySelector("#playerNum").value;
+  for (let i = 0; i < playerCount; i++) {
+    setupPlayer(i);
+  }
+  //PLAYER_ARRAY is an array of Player objects accessible by array location
+  const PLAYER_ARRAY = getPlayerArray();
   fadeIn("#playArea");
 }
 
-function getPlayerArray() {}
+function setupPlayer(player) {
+  const defaultNames = ["Alice", "Bob", "Charlie", "Denise"];
+  const el_playArea = document.querySelector("#playArea");
+  let el_player = document.createElement("div");
+  el_player.id = "player" + player;
+  el_player.innerHTML =
+    `
+  <div class="playerName">` +
+    defaultNames[player] +
+    `</div>
+  <div class="playerTable"></div>
+  <div class="playerHand"></div>
+  `;
+  el_playArea.appendChild(el_player);
+}
+
+function getPlayerArray() {
+  let els_players = document.querySelector("#playArea").children;
+  let playersArray = [];
+  for (el_player in els_players) {
+    let playerObject = {
+      hand: [],
+      table: [],
+      name: el_player.getElementsByClassName(".playerName")[0].innerHTML,
+    };
+  }
+  return playersArray;
+}
 
 function initDeck() {}
 
@@ -150,10 +184,3 @@ function hasWon(player) {}
 function win(player) {}
 
 function nextTurn(player) {}
-
-function fadeOut(elementString) {
-  const el = document.querySelector(elementString);
-  el.classList.add("transition-1s");
-  el.classList.add("invisible");
-  el.classList.add("hidden");
-}

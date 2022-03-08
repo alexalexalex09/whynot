@@ -9,7 +9,7 @@ a {
 
 /* functional classes */
 
-.transition-1s {
+.transition-long {
   transition: 1s all;
 }
 
@@ -18,5 +18,5 @@ a {
 }
 
 .hidden {
-  display: off;
+  display: none;
 }
